@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
+    public static int EQUALS_VALUE = 0;
+    public static int EQUALS_WORD = 1;
+    public static int EQUALS_VALUE_TYPE = 2;
+    public static int equalsType = 0;
     public char value;
     public int type;
     public int num;
+    public String word;
     public List<Node> child = new ArrayList<>();
 
     public Node() {
@@ -33,11 +38,30 @@ public class Node {
             return false;
         }
         Node p = (Node) o;
-        return p.value == this.value;
+        if(Node.equalsType == Node.EQUALS_VALUE) {
+            return p.value == this.value;
+        } else if(Node.equalsType == Node.EQUALS_WORD) {
+            return p.word.equals(this.word);
+        } else if(Node.equalsType == Node.EQUALS_VALUE_TYPE){
+            return p.value == this.value && p.type == this.type;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        if(Node.equalsType == Node.EQUALS_VALUE) {
+            return this.value;
+        } else if(Node.equalsType == Node.EQUALS_WORD) {
+            return this.word.length();
+        } else {
+            return super.hashCode();
+        }
     }
 
     public static void insert(Node root, String word, int type) {
-        if (word == null || word.isEmpty()) {
+        if (word == null) {
             return;
         }
         Node pNode = root;
@@ -54,6 +78,7 @@ public class Node {
             pNode = pNode.child.get(idx);
         }
         pNode.type = type;
+        pNode.word = word;
     }
 
     public static Node generateTree(String[] arr0,String[] arr1){

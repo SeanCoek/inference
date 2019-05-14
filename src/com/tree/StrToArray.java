@@ -22,8 +22,7 @@ public class StrToArray {
 		List<String> initList=readTxtFileIntoStringArrList("/home/sean/IdeaProjects/inference/src/com/tree/test.txt");
 		String[] strArray0 = null;
 		String[] strArray1 = null;
-//		TrieTree PTMM = new TrieTree();
-		
+
 		initArray = initList.toArray(new String[]{});
 		//不接受状态 0
 		str0 = initArray[1];
@@ -35,35 +34,24 @@ public class StrToArray {
 		strArray1 = convertStrToArray(str1);
 		printArray(strArray1);
 		
-//		TrieTree tree = generateTree(strArray0,strArray1);
 //		MainAlgorithm m = new MainAlgorithm();
 //		m.mainAlgorithm(tree);
 		Node root = Node.generateTree(strArray0,strArray1);
 		Node.display(root);
+		MainAlgorithm al = new MainAlgorithm();
+		al.mainAlgorithm(root);
 		
 	}
-	
-	//生成树
-	public static TrieTree generateTree(String[] arr0,String[] arr1){
-		int len0 = arr0.length;
-		int len1 = arr1.length;
-		TrieTree tempTree = new TrieTree();
-		for(int i=0;i<len0;i++){
-			tempTree.insert(arr0[i],0);
-		}
-		for(int i=0;i<len1;i++){
-			tempTree.insert(arr1[i],1);
-		}
-		return tempTree;
-	}
+
+
 	//使用String的split 方法
 	public static String[] convertStrToArray(String str){
 		String[] strArray = null;
 		strArray = str.split(",");
 		return strArray;
 	}
-	
-	
+
+
 	public static void printArray(String[] arr){
 		int len = arr.length;
 		for(int i=0;i<len;i++){
